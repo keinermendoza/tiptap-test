@@ -1,3 +1,3 @@
 document.addEventListener('DOMContentLoaded', () => {
-    alert('cargo')
+    alert('funciona')
 })

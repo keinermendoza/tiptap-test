@@ -25,7 +25,8 @@ services:
     command: npm run tailwind
     tty: true
     volumes:
-      - ./node_files:/home/node/app
+      - preserve_node_modules:/node/node_modules
+      - ./node_files:/node
       - ./backend:/backend
     depends_on:
       - web
@@ -35,7 +36,8 @@ services:
     container_name: webpack_container
     command: npm run webpack
     volumes:
-      - ./node_files:/home/node/app
+      - preserve_node_modules:/node/node_modules
+      - ./node_files:/node
       - ./backend:/backend
     depends_on:
       - web  
@@ -51,3 +53,4 @@ services:
       - POSTGRES_DB=mydb
 volumes:
   postgres_data_dev:
+  preserve_node_modules:

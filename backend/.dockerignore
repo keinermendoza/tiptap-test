@@ -1,6 +1,4 @@
-static/
-staticfiles/
-media/
+
 .env
 .env.dev
 .git
