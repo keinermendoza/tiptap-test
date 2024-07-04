@@ -25,7 +25,7 @@ services:
     command: npm run tailwind
     tty: true
     volumes:
-      - ./node_files:/node
+      - ./node_files:/home/node/app
       - ./backend:/backend
     depends_on:
       - web
@@ -35,7 +35,7 @@ services:
     container_name: webpack_container
     command: npm run webpack
     volumes:
-      - ./node_files:/node
+      - ./node_files:/home/node/app
       - ./backend:/backend
     depends_on:
       - web  
