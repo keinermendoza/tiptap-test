@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./src/tailwind/input.css -o ../backend/staticfiles/css/tailwind.css --watch",
+    "webpack": "webpack --mode=development  --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
