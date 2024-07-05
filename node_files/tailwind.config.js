@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "../backend/**/templates/**/*.html",
+    "./src/index.js",
   ],
   theme: {
     extend: {},
