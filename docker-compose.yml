@@ -3,7 +3,6 @@ version: '3.9'
 services:
   web:
     build: ./backend
-    container_name: web_container
     command: 
       - /bin/sh
       - -c
@@ -21,36 +20,35 @@ services:
       
   tailwind:
     build: ./node_files
-    container_name: tailwind_container
     command: npm run tailwind
     tty: true
     volumes:
-      - preserve_node_modules:/node/node_modules
-      - ./node_files:/node
+      - volume-preserve-tiptap-node-modules-tailwind:/app/node_modules
+      - ./node_files:/app
       - ./backend:/backend
     depends_on:
       - web
 
   webpack:
     build: ./node_files
-    container_name: webpack_container
     command: npm run webpack
     volumes:
-      - preserve_node_modules:/node/node_modules
-      - ./node_files:/node
+      - volume-preserve-tiptap-node-modules-webpack:/app/node_modules
+      - ./node_files:/app
       - ./backend:/backend
     depends_on:
       - web  
   db:
     image: postgres:16-bullseye
-
-    container_name: postgresql_container
     volumes:
       - postgres_data_dev:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
+    ports:
+      - 5430:5430
 volumes:
   postgres_data_dev:
-  preserve_node_modules:
+  volume-preserve-tiptap-node-modules-tailwind:
+  volume-preserve-tiptap-node-modules-webpack:

@@ -1,14 +1,19 @@
 {% extends "core/base.html" %}
-{% load static %}
+{% load editorjs %}
 
 {% block title %}home{% endblock title %}
 
-{% block script %}
-    <script src="{% static 'js/index.js' %}"></script>
-{% endblock script %}
-
 {% block content %}
     <main class="bg-slate-400 w-full p-5 rounded-lg">
-        hola
+        <div class="flex w-full bg-gray-300 rounded-md">
+            <button id="new-image" class="p-3 rounded-md">Add Image</button>
+        </div>
+        <h1>
+
+            hola
+        </h1>
+        {{ post.body_default }}
+        {{ post.body_editorjs | editorjs}}
+        {{ post.body_editorjs_text | editorjs}}
     </main>
 {% endblock content %}

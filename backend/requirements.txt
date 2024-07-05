@@ -1,5 +1,6 @@
 asgiref==3.8.1
 Django==5.0.6
+django-editorjs-fields==0.2.7
 django-htmx==1.18.0
 psycopg==3.2.1
 psycopg-binary==3.2.1
