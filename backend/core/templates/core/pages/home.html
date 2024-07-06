@@ -1,19 +1,17 @@
 {% extends "core/base.html" %}
-{% load editorjs %}
+{% load static my_editor %}
+
+{% block script %}
+    <link rel="stylesheet" href="{% static 'core/css/my_editor.css' %}">
+    <script src="{% static 'django-editorjs-fields/js/django-editorjs-fields.js' %}" ></script>
+{% endblock script %}
 
 {% block title %}home{% endblock title %}
 
 {% block content %}
-    <main class="bg-slate-400 w-full p-5 rounded-lg">
-        <div class="flex w-full bg-gray-300 rounded-md">
-            <button id="new-image" class="p-3 rounded-md">Add Image</button>
-        </div>
-        <h1>
-
-            hola
-        </h1>
-        {{ post.body_default }}
-        {{ post.body_editorjs | editorjs}}
+    <main class="bg-slate-400 w-full shadow-md p-5 rounded-lg">
+        {{ post.body_editorjs_text}}
+        
         {{ post.body_editorjs_text | editorjs}}
     </main>
 {% endblock content %}

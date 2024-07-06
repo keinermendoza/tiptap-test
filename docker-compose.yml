@@ -47,7 +47,7 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
     ports:
-      - 5430:5430
+      - 5431:5432
 volumes:
   postgres_data_dev:
   volume-preserve-tiptap-node-modules-tailwind:
