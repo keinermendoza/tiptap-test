@@ -20,13 +20,7 @@ export const MyAjax = {
       .then(data => {
         // Manejar la respuesta del servidor
         if (data.success) {
-          return {
-            success: 1,
-            file: {
-              url: data.url, // URL devuelta por el servidor
-              // cualquier otro dato que quieras almacenar
-            }
-          };
+          return data
         } else {
           throw new Error('Upload failed');
         }

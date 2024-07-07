@@ -24,6 +24,7 @@
     "@tiptap/extension-list-item": "^2.4.0",
     "@tiptap/pm": "^2.4.0",
     "@tiptap/starter-kit": "^2.4.0",
-    "froala-editor": "^4.2.1"
+    "froala-editor": "^4.2.1",
+    "htmx.org": "^1.9.12"
   }
 }

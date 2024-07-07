@@ -11,7 +11,8 @@
 {% block title %}home{% endblock title %}
 
 {% block content %}
-    <div id="editorjs"></div>
+
+    {% include "core/partials/post_title_create.html" %}
     {% comment %} <main class="bg-slate-400 w-full shadow-md p-5 rounded-lg">
         {{ post.body_editorjs_text}}
         

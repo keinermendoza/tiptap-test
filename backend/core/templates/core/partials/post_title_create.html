@@ -1,0 +1,10 @@
+<form 
+    id="form-create-post-title"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    hx-swap="outerHTML transition:true"
+    hx-post="{% url 'post_title_create' %}"
+    method="post"
+    action="{% url 'post_title_create' %}">
+    <input type="text" name="title">
+    <button type="submit">Crear Post</button>
+</form>

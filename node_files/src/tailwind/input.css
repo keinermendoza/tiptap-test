@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* animations */
+@keyframes appears {
+    0% {
+        translate: 0 -30%;
+        opacity: 0;
+        scale: 1.2;
+    }
+    100% {
+        translate: 0;
+        opacity: 1;
+        scale: 1;
+    }
+}
+.appears-500 {animation: appears .6s ease forwards;}
+.disappears-500 {animation: appears .6s ease reverse;}

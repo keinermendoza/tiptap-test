@@ -1,0 +1,15 @@
+<form 
+    id="save-full-post"
+    data-pk="{{post.id}}"
+
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    hx-swap="outerHTML transition:true"
+    hx-post="{% url 'post_title_create' %}"
+    method="post"
+    action="{% url 'post_title_create' %}">
+    <input type="text" value="{{post.title}}" name="title">
+    <div id="editorjs"></div>
+
+    <button type="submit">Guardar Post</button>
+</form>
+
