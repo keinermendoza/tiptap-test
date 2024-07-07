@@ -2,7 +2,7 @@ export const MyAjax = {
     upload(file, endpoint, csrftoken) {
       // Crear un objeto FormData para enviar el archivo
       let formData = new FormData();
-      formData.append('file', file);
+      formData.append('image', file);
   
       // Construir la URL con el ID
     //   const uploadUrl = `/upload-endpoint/${id}`;

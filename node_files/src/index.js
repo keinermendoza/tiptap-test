@@ -7,7 +7,7 @@ import ImageTool from '@editorjs/image';
 import getCookie from './getCookie.js';
 
 import { MyAjax } from './MyAjax.js';
-const UPLOAD_FILE_URL = 'http://localhost:8000/post/image/upload/1';
+const UPLOAD_FILE_URL = 'http://localhost:8000/post/image/upload/1/';
 
 document.addEventListener('DOMContentLoaded', () => {
     const csrftoken = getCookie('csrftoken');

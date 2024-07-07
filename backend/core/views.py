@@ -51,10 +51,11 @@ class UploadImage(GenericAPIView):
         except Post.DoesNotExist:
             return Response({'message': 'Post no existe'}, status=status.HTTP_404_NOT_FOUND)
         
+        print(request.data)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(post=post)
-        return Response({'message': 'todo bien'})
+        image = serializer.save(post=post)
+        return Response({'url': image.image.url})
         
     
     def get(self, request, pk):
