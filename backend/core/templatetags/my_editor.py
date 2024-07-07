@@ -131,8 +131,6 @@ def generate_link(data):
         image_url = image.get('url')
         wrapper += f'<figure class="link-block__image-container"><img src="{image_url}" /></figure><div class="link-block__text-container">'
 
-        # wrapper += f'<div class="link-block__image" style="background-image: url(\'{image_url}\');"></div>'
-
     if title:
         wrapper += f'<p class="link-block__title">{title}</p>'
 

@@ -3,15 +3,18 @@
 
 {% block script %}
     <link rel="stylesheet" href="{% static 'core/css/my_editor.css' %}">
-    <script src="{% static 'django-editorjs-fields/js/django-editorjs-fields.js' %}" ></script>
+    <script src="{% static 'js/index.js' %}" ></script>
+
+    {% comment %} <script src="{% static 'django-editorjs-fields/js/django-editorjs-fields.js' %}" ></script> {% endcomment %}
 {% endblock script %}
 
 {% block title %}home{% endblock title %}
 
 {% block content %}
-    <main class="bg-slate-400 w-full shadow-md p-5 rounded-lg">
+    <div id="editorjs"></div>
+    {% comment %} <main class="bg-slate-400 w-full shadow-md p-5 rounded-lg">
         {{ post.body_editorjs_text}}
         
         {{ post.body_editorjs_text | editorjs}}
-    </main>
+    </main> {% endcomment %}
 {% endblock content %}
