@@ -1,74 +1,43 @@
-import React from 'react'
+import React, { useEffect, useRef, useContext, useState } from 'react'
+import { EditorContext } from '../contexts/EditorContext';
+// import EditorJS from '@editorjs/editorjs';
 
-import Document from '@tiptap/extension-document'
-import Heading from '@tiptap/extension-heading'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import Dropcursor from '@tiptap/extension-dropcursor'
-import { EditorContent, useEditor } from '@tiptap/react'
-import Image from '@tiptap/extension-image'
-import { useCallback } from 'react'
-import Drop from '../components/Drop'
+// import Header from '@editorjs/header';
+// import List from "@editorjs/list";
+// import Quote from '@editorjs/quote';
+// import ImageTool from '@editorjs/image';
+// import { useParams } from 'react-router-dom';
+
+// import { createReactEditorJS } from 'react-editor-js'
+// import axiosInstance from '../services/axios'
+// import EditorTools from '../tools/EditorTools';
+import '../styles/editor.css'
+
+// import Editor from '../tools/Editor';
+
+
+
 export default function Root() {
-  const editor = useEditor({
-    extensions: [
-      Document,
-      Paragraph,
-      Text,
-      Image,
-      Dropcursor,
-      Heading.configure({
-        levels: [1, 2, 3],
-      }),
-    ],
-    content: `
-        <h1>This is a 1st level heading</h1>
-        <h2>This is a 2nd level heading</h2>
-        <h3>This is a 3rd level heading</h3>
-        <h4>This 4th level heading will be converted to a paragraph, because levels are configured to be only 1, 2 or 3.</h4>
-      `,
-  })
+  const {initEditor, editorInstanceRef} = useContext(EditorContext)
+  const editorRef = useRef(null)
 
-  const addImage = useCallback(() => {
-    const url = window.prompt('URL')
-
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run()
-    }
-  }, [editor])
-
-  if (!editor) {
-    return null
+  const handleSave = () => {
+    console.log(editorInstanceRef.current)
   }
 
-  return (
-    <>
-      <Drop />
-      <div className="control-group">
-        <div className="button-group">
-          <button onClick={addImage}>Set image</button>
-          <button
-            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-            className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
-          >
-            H1
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-            className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-          >
-            H2
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-            className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
-          >
-            H3
-          </button>
-        </div>
-      </div>
+  useEffect(() => {
+    if (!editorRef.current) {
+      initEditor(1)
+      editorRef.current = true
+    }
+  },[])
 
-      <EditorContent editor={editor} />
-    </>
-  )
+  return (
+    <div className="editor">
+     <div id="editorjs"></div>
+     <button 
+     onClick={handleSave}
+     className='rounded-md border border-blue-950 bg-blue-500 text-lg'>Salvar</button>
+    </div>
+  );
 }

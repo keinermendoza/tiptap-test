@@ -2,9 +2,10 @@
 import React from 'react'
 import { useEditor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import Image from './Image'
 
 // define your extension array
-const extensions = [StarterKit]
+const extensions = [StarterKit, new Image(null, null, upload),]
 
 const content = '<p>Hello World!</p>'
 

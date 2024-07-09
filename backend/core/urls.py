@@ -1,8 +1,9 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
+    re_path(r'^editor/.*$', views.EditorView.as_view()),
     
     path('posts/', views.PostList.as_view(), name='post_list'),
 
@@ -11,5 +12,8 @@ urlpatterns = [
 
 
     path('post/update/', views.CreatePost.as_view(), name='post_update'),
-    path("post/image/upload/<int:pk>/", views.UploadImage.as_view(), name="some")
+    # images
+    path("post/image/upload/<int:pk>/", views.UploadImage.as_view(), name="upload_image"),
+    path("post/image/delete/<int:pk>/", views.DeleteImage.as_view(), name="delete_image")
+
 ]

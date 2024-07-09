@@ -26,3 +26,9 @@ class ImagePost(models.Model):
         related_name="images",
     )
     image = models.ImageField(upload_to="posts_images")
+
+
+    def delete(self, *args, **kwargs):
+        if self.image:
+            self.image.delete(save=False)
+        super().delete(*args, **kwargs)

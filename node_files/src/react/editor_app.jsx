@@ -9,7 +9,7 @@ import Root from './routes/Root';
 // layouts
 // import AppLayout from './layout/AppLayout';
 import AppLayout from './layouts/AppLayout';
-
+import EditorContextProvider from './contexts/EditorContext';
 // // loader
 // import { TestimonialLoader } from './routes/Testimonials';
 // import { ProjectsLoader } from './routes/Projects';
@@ -30,6 +30,8 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('editor-app'))
   root.render(
     <React.StrictMode>
+      <EditorContextProvider>
       <RouterProvider router={router}/>
+      </EditorContextProvider>
     </React.StrictMode>
   )

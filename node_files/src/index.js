@@ -2,7 +2,6 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from "@editorjs/list";
 import Quote from '@editorjs/quote';
-import SimpleImage from "@editorjs/simple-image";
 import ImageTool from '@editorjs/image';
 import getCookie from './getCookie.js';
 window.htmx = require('htmx.org');

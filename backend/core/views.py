@@ -15,6 +15,7 @@ from rest_framework.generics import (
     GenericAPIView,
     RetrieveDestroyAPIView,
     CreateAPIView,
+    DestroyAPIView
 )
 from rest_framework.mixins import (
     CreateModelMixin,
@@ -28,6 +29,10 @@ from .serializers import ImagePostSerializers, PostSerializers, PostTitleSeriali
 
 from .forms import PostTitleForm
 
+from .permissions import IsAdmin
+
+class EditorView(IsAdmin, TemplateView):
+    template_name = "core/pages/editor.html"
 
 class HomeView(TemplateView):
     template_name = "core/pages/home.html"
@@ -144,6 +149,7 @@ class UploadImage(GenericAPIView):
                 "success": 1,
                 "file": {
                     "url": image.image.url,
+                    "id": image.id
                 },
             }
         )
@@ -157,3 +163,9 @@ class UploadImage(GenericAPIView):
             )
 
         return Response({"message": "todo bien"})
+    
+class DeleteImage(APIView):
+    def delete(self, request, *args, **kwargs):
+        image = get_object_or_404(ImagePost, pk=kwargs.get('pk'))
+        image.delete()
+        return Response({'message': 'Eliminado con exito'}, status=status.HTTP_200_OK)
