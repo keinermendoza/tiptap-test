@@ -140,7 +140,6 @@ class UploadImage(GenericAPIView):
                 {"message": "Post no existe"}, status=status.HTTP_404_NOT_FOUND
             )
 
-        print(request.data)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         image = serializer.save(post=post)
@@ -164,8 +163,8 @@ class UploadImage(GenericAPIView):
 
         return Response({"message": "todo bien"})
     
-class DeleteImage(APIView):
-    def delete(self, request, *args, **kwargs):
-        image = get_object_or_404(ImagePost, pk=kwargs.get('pk'))
-        image.delete()
-        return Response({'message': 'Eliminado con exito'}, status=status.HTTP_200_OK)
+# class DeleteImage(APIView):
+#     def delete(self, request, *args, **kwargs):
+#         image = get_object_or_404(ImagePost, pk=kwargs.get('pk'))
+#         image.delete()
+#         return Response({'message': 'Eliminado con exito'}, status=status.HTTP_200_OK)

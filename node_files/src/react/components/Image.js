@@ -6,7 +6,7 @@ export default class CustomImage extends Image {
         // access the image block's file data
         const { file } = this._data
         console.log(file)
-        axiosInstance.delete(`post/image/delete/${file.id}/`)
+        axiosInstance.delete(`cursos/${id}/image/delete/`)
         .then(resp => console.log(resp))
         
         // do something with the file data

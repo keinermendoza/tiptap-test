@@ -46,7 +46,7 @@ function EditorContextProvider(props) {
                     uploadByFile(file) {
                         let formData = new FormData();
                         formData.append('image', file);
-                        return axiosInstance.post(`post/image/upload/${id}/`, formData)
+                        return axiosInstance.post(`cursos/${id}/image/upload/`, formData)
                         .then((response) => {return response.data})
                         .catch(error => {
                             return {

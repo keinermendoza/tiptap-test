@@ -10,7 +10,7 @@ export default function AppLayout() {
           <h2>Navegacion</h2>
           <StatLink url="posts" text="Publicaciones" />
         </aside>
-        <main class="grow">
+        <main className="grow">
           <Outlet />
 
         </main>

@@ -14,6 +14,6 @@ urlpatterns = [
     path('post/update/', views.CreatePost.as_view(), name='post_update'),
     # images
     path("post/image/upload/<int:pk>/", views.UploadImage.as_view(), name="upload_image"),
-    path("post/image/delete/<int:pk>/", views.DeleteImage.as_view(), name="delete_image")
+    # path("post/image/delete/<int:pk>/", views.DeleteImage.as_view(), name="delete_image")
 
 ]

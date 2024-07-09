@@ -32,3 +32,34 @@ class ImagePost(models.Model):
         if self.image:
             self.image.delete(save=False)
         super().delete(*args, **kwargs)
+
+
+
+class Curso(models.Model):
+    title = models.CharField(max_length=250)
+    image = models.ImageField(upload_to="primaries_curso_images", blank=True, null=True)
+    description = models.JSONField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    is_public = models.BooleanField(default=False)
+    
+    @classmethod
+    def get_image_model(cls):
+        return ImageCurso
+
+    def __str__(self):
+        return self.title
+
+class ImageCurso(models.Model):
+    curso = models.ForeignKey(
+        Curso,
+        on_delete=models.CASCADE,
+        related_name="images_curso",
+    )
+    image = models.ImageField(upload_to="cursos_images")
+
+
+    def delete(self, *args, **kwargs):
+        if self.image:
+            self.image.delete(save=False)
+        super().delete(*args, **kwargs)
