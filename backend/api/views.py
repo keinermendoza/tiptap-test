@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import (
     ListCreateAPIView,
     GenericAPIView,
+    RetrieveUpdateDestroyAPIView
 )
 from core.models import (
     Curso,
@@ -18,6 +19,10 @@ from .serializers import (
 )
 
 class CursosList(ListCreateAPIView):
+    serializer_class = CursoSerializer
+    queryset = Curso.objects.all()
+
+class CursoRetriveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     serializer_class = CursoSerializer
     queryset = Curso.objects.all()
 
@@ -53,3 +58,4 @@ class UploadImage(GenericAPIView):
                 },
             }
         )
+    

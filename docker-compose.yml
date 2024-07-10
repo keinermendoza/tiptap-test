@@ -38,6 +38,8 @@ services:
       - ./backend:/backend
     depends_on:
       - web  
+    ports:
+      - 9000:9000
   db:
     image: postgres:16-bullseye
     volumes:

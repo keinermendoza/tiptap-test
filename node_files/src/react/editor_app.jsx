@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM  from 'react-dom/client'
 // import App from './App'
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 // routes
-// import Root from './routes/Root';
 import Cursos from './routes/Cursos';
 import CursoVistaPrevia from './routes/CursoVistaPrevia'
+import CursoEditando from './routes/CursoEditando';
 // layouts
 // import AppLayout from './layout/AppLayout';
 import AppLayout from './layouts/AppLayout';
@@ -14,6 +14,7 @@ import EditorContextProvider from './contexts/EditorContext';
 // // loader
 
 import { CursosLoader } from './routes/Cursos';
+import { CursoIdLoader } from './routes/CursoId';
 // import { TestimonialLoader } from './routes/Testimonials';
 // import { ProjectsLoader } from './routes/Projects';
 
@@ -22,20 +23,57 @@ import { CursosCreateAction } from './routes/Cursos';
 
 // import { TestimonialCreateAction } from './routes/Testimonials';
 // import { ProjectsCreateAction } from './routes/Projects';
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/editor/" element={<AppLayout />}  >
-      <Route index element={<Navigate replace to={'cursos'} />}  />
-      <Route path="cursos" loader={CursosLoader} action={CursosCreateAction} element={<Cursos />}>
-         {/* <Route path=":id" loader={CursoLoader} element={<Navigate replace to={'vista-previa'} />}>
-          <Route path="vista-previa" element={<CursoVistaPrevia /> } />
-          <Route path="editando" />
-        </Route> */}
-      </Route>
-    </Route>
+const Outro = () => {
+  return (
+    <p>Outro</p>
   )
-);
+}
+const router = createBrowserRouter([
+  {
+    path: "/editor",
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate replace to={'cursos'} />,
+      },
+      {
+        path: "cursos",
+        children: [
+          {
+            index: true,
+            element: <Cursos />,
+            loader: CursosLoader,
+            action: CursosCreateAction,
+          },
+          {
+            path: ":id",
+            children: [
+              {
+                index: true,
+                element: <Navigate replace to={'editando'} />,
+              },
+              {
+                path: "vista-previa",
+                element: <CursoVistaPrevia />,
+                loader: CursoIdLoader,
+
+              },
+              {
+                path: "editando",
+                element: <CursoEditando />,
+                loader: CursoIdLoader,
+
+              }
+            ]
+
+          },
+        ]
+      },
+    ],
+  },
+]);
+
 
 const root = ReactDOM.createRoot(document.getElementById('editor-app'))
   root.render(

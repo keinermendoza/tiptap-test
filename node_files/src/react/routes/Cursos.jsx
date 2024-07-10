@@ -1,26 +1,43 @@
 import React from "react";
 import axiosInstance from "../services/axios";
 import { Form, useLoaderData, redirect } from 'react-router-dom'
+import CursoCard from "../components/CursoCard";
+// import { useSubmit } from "react-router-dom";
 
 
 
 
 export default function Cursos() {
+  // const submit = useSubmit()
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   submit(e.currentTarget)
+  //   e.currentTarget?.reset()
+  // }
   const {cursos} = useLoaderData()
+
   console.log(cursos)
   return (
   <section>
       <h2>Cursos Registrados</h2>
       {cursos.map(curso => (
-          <p key={curso.id}>{curso.title}</p>
+          <CursoCard
+            key={curso.id}
+            id={curso.id} 
+            title={curso.title} 
+          />
       ))
       }
 
-    <Form method="post">
+    <Form  method="post">
       <label htmlFor="title">
         <span>Titulo</span>
-      <input placeholder="Registra un nuevo curso..." type="text" id="title" name="title" />
+      <input 
+        placeholder="Registra un nuevo curso..."
+        type="text"
+        id="title"
+        name="title" />
       </label>
       <button type="submit">Crear</button>
     </Form>
@@ -42,8 +59,8 @@ export async function CursosCreateAction({ request, params }) {
       "cursos",
       formData,
     );
-    return redirect('');
+    // return redirect('/editor/cursos');
     
-    // return redirect(`/editor/cursos/${resp.id}`);
+    return redirect(`/editor/cursos/${resp.data.id}`);
 
   }

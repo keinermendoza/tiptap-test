@@ -8,7 +8,7 @@ export default function AppLayout() {
       <div className="flex gap-5">
         <aside className="flex flex-col gap-3 p-3 rounded-md bg-blue-800 text-white">
           <h2>Navegacion</h2>
-          <StatLink url="posts" text="Publicaciones" />
+          <StatLink url="cursos" text="Cursos" />
         </aside>
         <main className="grow">
           <Outlet />

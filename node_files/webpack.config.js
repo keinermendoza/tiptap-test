@@ -40,10 +40,10 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx']
     },
-    // devServer: {
-    //     contentBase: path.join(__dirname, 'dist'),
-    //     compress: true,
-    //     port: 9000
-    // }
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
+    }
     
 }
