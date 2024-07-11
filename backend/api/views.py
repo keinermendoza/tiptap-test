@@ -23,6 +23,7 @@ class CursosList(ListCreateAPIView):
     queryset = Curso.objects.all()
 
 class CursoRetriveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    parser_classes = [MultiPartParser, FormParser]
     serializer_class = CursoSerializer
     queryset = Curso.objects.all()
 

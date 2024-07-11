@@ -12,10 +12,11 @@ export const EditorContext = createContext()
 function EditorContextProvider(props) {
   const editorInstanceRef = useRef(null)
 
-  const initEditor = (id) => {
+  const initEditor = ({id, data}) => {
     const editor = new EditorJS({
       
       holder: "editorjs",
+      data: data,
       placeholder: "Let's take a note!",
       tools: {
         paragraph: {
