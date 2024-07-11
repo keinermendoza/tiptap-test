@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext, useState } from 'react'
 
 import { EditorContext } from '../contexts/EditorContext';
-import { useLoaderData, useParams, Form } from 'react-router-dom';
+import { useLoaderData, useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../services/axios';
 import Switch from "react-custom-checkbox/switch";
 import ReactFileReader from "react-file-reader";
@@ -9,7 +9,8 @@ import ReactFileReader from "react-file-reader";
 export default function CursoEditando() {
     const {id} = useParams()
     const {curso} = useLoaderData()
-    
+    const navigate = useNavigate()
+
     const [title, setTilte] = useState(curso?.title)
     const [isPublic, setIsPublic] = useState(curso?.is_public)
 
@@ -67,7 +68,7 @@ export default function CursoEditando() {
                     'Content-Type': 'multipart/form-data',
                 }
             });
-            console.log(resp.data);
+            navigate('../vista-previa', { replace: true })
         } catch (err) {
             console.error(err);
         }

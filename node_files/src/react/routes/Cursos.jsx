@@ -21,14 +21,17 @@ export default function Cursos() {
   return (
   <section>
       <h2>Cursos Registrados</h2>
-      {cursos.map(curso => (
-          <CursoCard
-            key={curso.id}
-            id={curso.id} 
-            title={curso.title} 
-          />
-      ))
-      }
+      <div className="flex flex-col gap-2">
+
+        {cursos.map(curso => (
+            <CursoCard
+              key={curso.id}
+              id={curso.id} 
+              title={curso.title} 
+            />
+        ))
+        }
+      </div>
 
     <Form  method="post">
       <label htmlFor="title">
