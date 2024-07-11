@@ -14,9 +14,7 @@ function EditorContextProvider(props) {
 
   const initEditor = (id) => {
     const editor = new EditorJS({
-      onChange: (api, event) => {
-        console.log(api, event)
-      },
+      
       holder: "editorjs",
       placeholder: "Let's take a note!",
       tools: {
