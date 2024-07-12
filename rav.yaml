@@ -1,0 +1,3 @@
+rav:
+    webpack: docker exec -it tiptap-webpack-1 bash
+    web: docker exec -it tiptap-web-1 bash

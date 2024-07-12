@@ -20,6 +20,7 @@ import { CursoIdLoader } from './routes/CursoId';
 
 // // actions
 import { CursosCreateAction } from './routes/Cursos';
+import { CursoIdDelete } from './routes/CursoId';
 
 // import { TestimonialCreateAction } from './routes/Testimonials';
 // import { ProjectsCreateAction } from './routes/Projects';
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
                 element: <CursoEditando />,
                 loader: CursoIdLoader,
 
+              },
+              {
+                path: "delete",
+                action: CursoIdDelete,
               }
             ]
 

@@ -56,14 +56,20 @@ export async function CursosLoader() {
   
 
 export async function CursosCreateAction({ request, params }) {
-    const formData = await request.formData();
-    const dataObject = Object.fromEntries(formData);
+  const formData = await request.formData();
+  
+  switch (request.method) {
+    case "POST": {
+
     const resp = await axiosInstance.post(
       "cursos",
       formData,
     );
-    // return redirect('/editor/cursos');
-    
     return redirect(`/editor/cursos/${resp.data.id}`);
-
+    }
+    case "DELETE": {
+      const resp = await axiosInstance.delete(`cursos/${formData.id}/`);
+      return redirect('/editor/cursos/', { replace: true })
+    }
   }
+}
