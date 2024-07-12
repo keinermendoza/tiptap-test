@@ -27,7 +27,7 @@ function EditorContextProvider(props) {
           inlineToolbar: true,
           config: {
             placeholder: "Enter a Header",
-            levels: [1, 2, 3, 4, 5],
+            levels: [2, 3],
             defaultLevel: 2,
           }
         },

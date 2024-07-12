@@ -98,7 +98,7 @@ export default function CursoEditando() {
                   </ ReactFileReader >
                 </div>
                
-                <div id="editorjs"></div>
+                <div class="editorjs" id="editorjs"></div>
 
                 <Switch
                     checked={isPublic}

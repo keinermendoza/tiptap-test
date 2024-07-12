@@ -17,3 +17,24 @@
 }
 .appears-500 {animation: appears .6s ease forwards;}
 .disappears-500 {animation: appears .6s ease reverse;}
+
+@layer components {
+    
+    .editorjs h2 {
+        @apply text-xl font-semibold;
+    }
+    .editorjs h3 {
+        @apply text-lg;
+    }
+    .editorjs p {
+        @apply text-base;
+    }
+    .editorjs ul {
+        @apply list-inside list-disc;
+    }
+    .editorjs img {
+        @apply w-full object-cover;
+    }
+
+}
+
