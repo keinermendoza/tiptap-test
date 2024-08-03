@@ -29,7 +29,7 @@ class CursoRetriveUpdateDestroy(RetrieveUpdateDestroyAPIView):
 
 class DeleteImage(APIView):
     def delete(self, request, *args, **kwargs):
-        image = get_object_or_404(ImageCurso, pk=kwargs.get('pk'))
+        image = get_object_or_404(ImageCurso, pk=kwargs.get('image_id'))
         image.delete()
         return Response({'message': 'Eliminado con exito'}, status=status.HTTP_200_OK)
 
@@ -46,17 +46,48 @@ class UploadImage(GenericAPIView):
             return Response(
                 {"message": "Curso no existe"}, status=status.HTTP_404_NOT_FOUND
             )
+        print(request.data)
 
         serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        image = serializer.save(curso=curso)
-        return Response(
-            {
-                "success": 1,
-                "file": {
-                    "url": image.image.url,
-                    "id": image.id
-                },
-            }
-        )
+        if serializer.is_valid():
+            image = serializer.save(curso=curso)
+            return Response({"url": image.image.url, "id":image.id}, status=status.HTTP_200_OK)
+        return Response({'serializer': serializer.error_messages}, status=400)
+        #     {
+        #         "success": 1,
+        #         "file": {
+        #             "url": image.image.url,
+        #             "id": image.id
+        #         },
+        #     }
+        # )
+    
+
+
+
+# class UploadImage(GenericAPIView):
+#     serializer_class = ImageCursoSerializers
+#     queryset = ImageCurso.objects.all()
+#     parser_classes = [MultiPartParser, FormParser]
+
+#     def post(self, request, pk):
+#         try:
+#             curso = Curso.objects.get(pk=pk)
+#         except Curso.DoesNotExist:
+#             return Response(
+#                 {"message": "Curso no existe"}, status=status.HTTP_404_NOT_FOUND
+#             )
+
+#         serializer = self.serializer_class(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         image = serializer.save(curso=curso)
+#         return Response(
+#             {
+#                 "success": 1,
+#                 "file": {
+#                     "url": image.image.url,
+#                     "id": image.id
+#                 },
+#             }
+#         )
     

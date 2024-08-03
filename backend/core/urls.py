@@ -3,6 +3,10 @@ from . import views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
+    path("crear-curso/", views.CrearCurso.as_view(), name="crear_curso"),
+    path("update-curso/<int:pk>/", views.UpdateCurso.as_view(), name="update_curso"),
+
+    
     re_path(r'^editor/.*$', views.EditorView.as_view()),
     
     path('posts/', views.PostList.as_view(), name='post_list'),

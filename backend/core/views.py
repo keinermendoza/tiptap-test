@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.http import HttpResponse
-from django.views.generic import TemplateView, CreateView, FormView, ListView, View
-from .models import Post, ImagePost
+from django.views.generic import TemplateView, CreateView, UpdateView, FormView, ListView, View
+from .models import Post, ImagePost, Curso
 from django.views.generic.detail import SingleObjectMixin
 
 
@@ -31,6 +32,38 @@ from .forms import PostTitleForm
 
 from .permissions import IsAdmin
 
+
+from django import forms
+
+class CursoSimpleForm(forms.ModelForm):
+    class Meta: 
+        model = Curso
+        fields = '__all__'
+        widgets = {
+            'body': forms.HiddenInput(),
+        }
+
+class CursoBase:
+    template_name = "core/pages/home.html"
+    form_class = CursoSimpleForm
+    success_url = reverse_lazy('home')
+    model  = Curso
+
+class CrearCurso(CursoBase, CreateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({"action":reverse_lazy('crear_curso')})
+        return context
+
+class UpdateCurso(CursoBase, UpdateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "action":reverse_lazy('update_curso', args=[self.kwargs.get('pk')]),
+            "image_endpoint":reverse_lazy("cursos_detail", args=[self.kwargs.get('pk')])    
+        })
+        return context
+
 class EditorView(IsAdmin, TemplateView):
     template_name = "core/pages/editor.html"
 
@@ -39,7 +72,11 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["post"] = Post.objects.first()
+        context.update({
+            "cursos": Curso.objects.all(),
+            "form": CursoSimpleForm(),
+            "action":reverse_lazy('crear_curso'),
+        })
         return context
 
 

@@ -1,7 +1,8 @@
 from django.db import models
+from django.urls import reverse_lazy
 from django_editorjs_fields import EditorJsJSONField  # Django >= 3.1
 from django_editorjs_fields import EditorJsTextField
-
+# from django_editorjs import EditorJsField
 
 class Post(models.Model):
     # body_default = models.TextField()
@@ -36,9 +37,11 @@ class ImagePost(models.Model):
 
 
 class Curso(models.Model):
-    title = models.CharField(max_length=250)
+    name = models.CharField(max_length=250)
     image = models.ImageField(upload_to="primaries_curso_images", blank=True, null=True)
-    description = models.JSONField(blank=True, null=True)
+    # description = models.JSONField(blank=True, null=True)
+    # body = models.TextField(blank=True)
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=False)
@@ -48,7 +51,11 @@ class Curso(models.Model):
         return ImageCurso
 
     def __str__(self):
-        return self.title
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse_lazy("update_curso", args=[self.pk])
+    
 
 class ImageCurso(models.Model):
     curso = models.ForeignKey(

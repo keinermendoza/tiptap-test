@@ -19,7 +19,7 @@
 .disappears-500 {animation: appears .6s ease reverse;}
 
 @layer components {
-    
+
     .editorjs h2 {
         @apply text-xl font-semibold;
     }

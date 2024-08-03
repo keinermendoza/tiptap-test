@@ -18,28 +18,28 @@ services:
     depends_on:
       - db
       
-  tailwind:
-    build: ./node_files
-    command: npm run tailwind
-    tty: true
-    volumes:
-      - volume-preserve-tiptap-node-modules-tailwind:/app/node_modules
-      - ./node_files:/app
-      - ./backend:/backend
-    depends_on:
-      - web
+  # tailwind:
+  #   build: ./node_files
+  #   command: npm run tailwind
+  #   tty: true
+  #   volumes:
+  #     - volume-preserve-tiptap-node-modules-tailwind:/app/node_modules
+  #     - ./node_files:/app
+  #     - ./backend:/backend
+  #   depends_on:
+  #     - web
 
-  webpack:
-    build: ./node_files
-    command: npm run webpack
-    volumes:
-      - volume-preserve-tiptap-node-modules-webpack:/app/node_modules
-      - ./node_files:/app
-      - ./backend:/backend
-    depends_on:
-      - web  
-    ports:
-      - 9000:9000
+  # webpack:
+  #   build: ./node_files
+  #   command: npm run webpack
+  #   volumes:
+  #     - volume-preserve-tiptap-node-modules-webpack:/app/node_modules
+  #     - ./node_files:/app
+  #     - ./backend:/backend
+  #   depends_on:
+  #     - web  
+  #   ports:
+  #     - 9000:9000
   db:
     image: postgres:16-bullseye
     volumes:

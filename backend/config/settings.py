@@ -31,6 +31,11 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms", 
+    "unfold.contrib.inlines", 
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -5,7 +5,7 @@ import Paragraph from "@editorjs/paragraph"
 import Header from "@editorjs/header"
 import List from "@editorjs/list"
 import ImageTool from '@editorjs/image';
-import axiosInstance from "../services/axios";
+import {axiosInstance} from "../services/axios";
 import CustomImage from "../components/Image";
 export const EditorContext = createContext()
 
@@ -15,7 +15,7 @@ function EditorContextProvider(props) {
   const initEditor = ({id, data}) => {
     const editor = new EditorJS({
       
-      holder: "editorjs",
+      holder: "id_description",
       data: data,
       placeholder: "Let's take a note!",
       tools: {

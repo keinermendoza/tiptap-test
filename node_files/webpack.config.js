@@ -4,6 +4,8 @@ module.exports = {
     entry: {
         index: './src/index.js',
         editor_app:'./src/react/editor_app.jsx',
+        admin: './src/admin.js',
+        home: './src/home.js'
     },
     output: {
         'path': path.resolve(path.dirname(__dirname), 'backend', 'staticfiles', 'js'),
