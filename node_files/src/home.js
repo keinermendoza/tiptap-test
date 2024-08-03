@@ -16,10 +16,32 @@ const myAxios = axios.create({
 let upload_enponit;
 let delete_enponit;
 document.addEventListener('DOMContentLoaded', () => {
-    const endpoint =  JSON.parse(document.querySelector('#curso_endpoint').textContent)
-    upload_enponit = endpoint + 'image/upload/'
-    delete_enponit = endpoint + 'image/delete/'
+    // const endpoint =  JSON.parse(document.querySelector('#curso_endpoint').textContent)
+    // upload_enponit = endpoint + 'image/upload/'
+    // delete_enponit = endpoint + 'image/delete/'
+    // /admin/core/curso/my_view/
+
+
+    // testing. it works
+    const button = document.querySelector("#send-ajax-message")
+    console.log(button)
+
+    button.addEventListener('click', () => {
+        console.log('aqui')
+        const myfecth = async () => {
+            try {
+                const resp = await axios.get('/admin/core/curso/my_view/')
+                console.log(resp.data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        myfecth()
+    })
+    
 })
+
+    
 
 // MAIN UPLOAD IMAGE FUNCTION
 const uploadFileAttachment = async (attachment) => {
