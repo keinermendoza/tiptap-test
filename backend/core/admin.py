@@ -1,5 +1,6 @@
 from django import forms
-from django.urls import path
+from django.shortcuts import get_object_or_404
+from django.urls import path, reverse_lazy
 from django.contrib import admin
 from .models import Post, ImagePost, Curso, ImageCurso
 from unfold.admin import ModelAdmin, TabularInline
@@ -9,7 +10,6 @@ from django.http import JsonResponse
 
 admin.site.register(Post)
 admin.site.register(ImagePost)
-# admin.site.register(Curso)
 @admin.register(ImageCurso)
 class ImageCursoAdmin(ModelAdmin):
     list_display = ['id', '__str__']
@@ -18,11 +18,18 @@ class MinimalCreateForm(forms.ModelForm):
     class Meta:
         fields = ['name']
 
-class EditorJsUploadAdmin(ModelAdmin):
-    # form = ReachTextForm
+        
+
+class TrixUploadAdmin(ModelAdmin):
+    """
+    FOR USE MUST TO SET THE FOLLOWING ATRIBUTES IN THE EXTENDING CLASS
+    name_image_field: image
+    form_related_image: ModelForm class
+    rel_image_to_model: curso
+    """
     change_form_template = "admin/change_form_trix_handle_images.html"
+    
     def get_form(self, request, obj=None, **kwargs):
-        # Si es una vista de añadir (objeto es None), usa el formulario personalizado
         if obj is None:
             kwargs['form'] = MinimalCreateForm
         return super().get_form(request, obj, **kwargs)
@@ -35,33 +42,61 @@ class EditorJsUploadAdmin(ModelAdmin):
         })
         return super().add_view(request=request, form_url="", extra_context=context)
     
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        extra_context = extra_context or {}
+        extra_context.update({
+            "url_upload_image": reverse_lazy('admin:wysiwyg_upload_image', args=[object_id]),
+        })
+        return super().change_view(
+            request,
+            object_id,
+            form_url,
+            extra_context=extra_context,
+        )
+    
     def get_urls(self):
         urls = super().get_urls()
-        my_urls = [path("my_view/", self.admin_site.admin_view(self.my_view))]
-
-        print(my_urls)
+        my_urls = [path("<int:pk>/wysiwyg_upload_image/", self.admin_site.admin_view(self.wysiwyg_upload_image), name='wysiwyg_upload_image')]
         return my_urls + urls
 
-    def my_view(self, request):
-        return JsonResponse({"message":"todo bien por aqui"})
+    
+
+    def wysiwyg_upload_image(self, request, *args, **kwargs):
+        instance = get_object_or_404(self.model, pk=kwargs.get('pk'))
+        form = self.form_related_image(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            setattr(image, self.rel_image_to_model, instance)
+            image.save()
+            
+            return  JsonResponse({"url": getattr(image, self.name_image_field).url, "id":image.id}, status=200)
+        return JsonResponse({"errors":form.errors.as_json()}, status=400)
     
     class Media:
-        js = ["js/home.js"]
+        js = ["js/admin.js"]
     
+
+class CursoImageForm(forms.ModelForm):
+    class Meta:
+        model = ImageCurso
+        fields = ["image"]
+
+class CursoAdminForm(forms.ModelForm):
+    class Meta:
+        model = Curso
+        fields = '__all__'
+        widgets = {
+            'body':WysiwygWidget
+        }
 
 class CursoImageInline(TabularInline):
     model = ImageCurso
-
+    
 @admin.register(Curso)
-class CursoAdmin(EditorJsUploadAdmin):
+class CursoAdmin(TrixUploadAdmin):
+    form = CursoAdminForm
+    form_related_image = CursoImageForm
+    name_image_field = "image"
+    rel_image_to_model = "curso"
     inlines = [CursoImageInline]
-        
-        # return super().change_view(
-        #     request,
-        #     object_id,
-        #     form_url,
-        #     extra_context=extra_context,
-        # )
-
-# context["show_save"] = False
-# Register your models here.
+   

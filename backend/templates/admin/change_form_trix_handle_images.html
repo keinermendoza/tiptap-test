@@ -4,6 +4,8 @@
 
 {% block extrahead %}{{ block.super }}
     <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ url_upload_image|json_script:"url_upload_image" }}
+
     {{ media }}
 {% endblock %}
 
@@ -59,7 +61,6 @@
 
 {% block content %}
     
-    <button id="send-ajax-message" class="text-red-500 p-2 rounded-md hover:bg-green-500">Ver en consola</button>
     <div id="content-main">
         <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}{% if form_url %}action="{{ form_url }}" {% endif %}method="post" id="{{ opts.model_name }}_form" novalidate>
             {% csrf_token %}

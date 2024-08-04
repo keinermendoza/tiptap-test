@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // testing. it works
+    const endpoint =  JSON.parse(document.querySelector('#url_upload_image').textContent)
+
     const button = document.querySelector("#send-ajax-message")
     console.log(button)
 
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('aqui')
         const myfecth = async () => {
             try {
-                const resp = await axios.get('/admin/core/curso/my_view/')
+                const resp = await axios.get(endpoint)
                 console.log(resp.data)
             } catch (error) {
                 console.error(error)
