@@ -4,7 +4,7 @@
 
 {% block extrahead %}{{ block.super }}
     <script src="{% url 'admin:jsi18n' %}"></script>
-    {{ url_upload_image|json_script:"url_upload_image" }}
+    {{ urls_upload_delete_image|json_script:"urls_upload_delete_image" }}
 
     {{ media }}
 {% endblock %}
