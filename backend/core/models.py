@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse_lazy
 from django_editorjs_fields import EditorJsJSONField  # Django >= 3.1
 from django_editorjs_fields import EditorJsTextField
-# from django_editorjs import EditorJsField
+from django.utils.safestring import mark_safe
 
 class Post(models.Model):
     # body_default = models.TextField()
@@ -55,6 +55,10 @@ class Curso(models.Model):
     
     def get_absolute_url(self):
         return reverse_lazy("update_curso", args=[self.pk])
+    
+    @property
+    def body_content(self):
+        return mark_safe(self.body)
     
 
 class ImageCurso(models.Model):

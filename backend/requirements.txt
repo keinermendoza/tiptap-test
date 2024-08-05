@@ -1,7 +1,9 @@
 asgiref==3.8.1
+beautifulsoup4==4.12.3
 black==24.4.2
 click==8.1.7
 Django==5.0.6
+django-cotton==0.9.23
 django-editorjs==0.2.1
 django-editorjs-fields==0.2.7
 django-extensions==3.2.3
@@ -16,6 +18,7 @@ platformdirs==4.2.2
 psycopg==3.2.1
 psycopg-binary==3.2.1
 python-dotenv==1.0.1
+soupsieve==2.5
 sqlparse==0.5.0
 tomli==2.0.1
 typing_extensions==4.12.2

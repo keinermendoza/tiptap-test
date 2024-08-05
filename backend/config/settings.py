@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "unfold.contrib.filters",  # optional, if special filters are needed
     "unfold.contrib.forms", 
     "unfold.contrib.inlines", 
+    'django_cotton',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
     'django_editorjs_fields',
     'django_htmx',
     'rest_framework',
-    'django_extensions'
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -63,21 +64,38 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+# cottom loader only try to find components in the nexts folders
+COTTON_DIRS = [
+    BASE_DIR / 'cotton_components',
+    BASE_DIR / 'core/templates'
+] 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
+        'DIRS': [],
+        'APP_DIRS': False,
         'OPTIONS': {
+            "loaders": [
+                # only change is to limit the available dirs 
+                ("core.custom_cotton_loader.Loader", COTTON_DIRS), 
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
+            "builtins": [
+                "django_cotton.templatetags.cotton",
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
